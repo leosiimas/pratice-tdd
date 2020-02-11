@@ -1,6 +1,8 @@
+require('dotenv/config');
+
 const headers = {
-  'X-Parse-Application-Id': '6939e808daa0c434d3d0a68825a529ba',
-  'X-Parse-REST-API-Key': '0e60ad33a2b549cab413f83b97713d6c',
+  'X-Parse-Application-Id': process.env.X_PARSE_APPLICATION_ID,
+  'X-Parse-REST-API-Key': process.env.X_PARSE_REST_API_KEY,
   'Content-Type': 'application/json',
 };
 
