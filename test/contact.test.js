@@ -27,7 +27,7 @@ beforeAll(async () => {
   await seedChildren();
 });
 
-describe.skip('Ao utilizar o endpoint Save Contact', () => {
+describe('Ao utilizar o endpoint Save Contact', () => {
 
   describe('Em caso de Sucesso', () => {
     test('Deve retornar as informaçoes do Contato', async () => {
@@ -139,7 +139,7 @@ describe.skip('Ao utilizar o endpoint Save Contact', () => {
 
 });
 
-describe.skip('Ao utilizar o endpoint View Contact', () => {
+describe('Ao utilizar o endpoint View Contact', () => {
 
   test('Deve retornar todas a informações do Contato', async () => {
     const c = await axios
@@ -211,7 +211,7 @@ describe.skip('Ao utilizar o endpoint View Contact', () => {
 
 });
 
-describe.skip('Ao utiliza o endpoint Delete Contact', () => {
+describe('Ao utiliza o endpoint Delete Contact', () => {
 
   test('Deve retornar retornar mensagem de contato deletado em caso de sucesso', async () => {
     const c = await axios
@@ -283,8 +283,10 @@ describe.skip('Ao utiliza o endpoint Delete Contact', () => {
 describe('Ao utilizar o endpoint Get Contact Child', () => {
   test('Deve retornar todos os contatos das crianças selecionadas', async () => {
 
+    const c = await child.getChild().then((r) => { return r; });
+
     await axios
-      .post(`${urlFunctions}/saveContact`, newContact, { headers: user1.headers })
+      .post(`${urlFunctions}/saveContact`, { ...newContact, children: [c] }, { headers: user1.headers })
       .then((r) => {
         return r;
       })
@@ -293,7 +295,7 @@ describe('Ao utilizar o endpoint Get Contact Child', () => {
       });
 
     const response = await axios
-      .post(`${urlFunctions}/getContactChild`, { children }, { headers: user1.headers })
+      .post(`${urlFunctions}/getContactChild`, { children: [c] }, { headers: user1.headers })
       .then((r) => {
         return r;
       })
@@ -318,9 +320,22 @@ describe('Ao utilizar o endpoint Get Contact Child', () => {
         return r.response;
       });
 
-    console.log(response);
-
     expect(response.status).toBe(200);
     expect(response.data.result).toBe('child without contact');
+  });
+
+  test('Deve retornar erro caso esteja faltando algum parametro', async () => {
+    const response = await axios
+      .post(`${urlFunctions}/getContactChild`, {}, { headers: user1.headers })
+      .then((r) => {
+        return r;
+      })
+      .catch((r) => {
+        return r.response;
+      });
+
+    expect(response.status).toBe(400);
+    expect(response.data.code).toBe(141);
+    expect(response.data.error).toBe('Oops! Missing parameter in this request.');
   });
 });
