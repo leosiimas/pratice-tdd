@@ -10,8 +10,8 @@ const { url } = config;
 const defaultUser = {
   name: 'User Test Leo',
   password: '123456',
-  username: `${unique}@email.com`,
-  email: `${unique}@email.com`,
+  username: `${unique}user@email.com`,
+  email: `${unique}user@email.com`,
 };
 
 const getUser = async (newUser = null) => {

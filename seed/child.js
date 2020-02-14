@@ -4,7 +4,7 @@ const config = require('../config/config');
 const { urlFunctions } = config;
 
 const defaultChild = {
-  name: 'Nova Crinça',
+  name: 'Criança Test Leo',
   birthday: '20/12/2014',
   color: 'amarelo',
   sex: 'masculino',
@@ -12,11 +12,11 @@ const defaultChild = {
   userLink: 'pai',
 };
 
-const { user1 } = config;
+const { headers } = config;
 
-const getChild = async (newChild = null) => {
+const getChild = async (newChild = null, newHeaders = null) => {
   const child = await axios
-    .post(`${urlFunctions}/saveChild`, { ...defaultChild, ...newChild }, { headers: user1.headers })
+    .post(`${urlFunctions}/saveChild`, { ...defaultChild, ...newChild }, { headers: { ...headers, ...newHeaders } })
     .then((r) => {
       return r;
     })

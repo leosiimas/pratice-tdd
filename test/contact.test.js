@@ -17,7 +17,7 @@ const { user2 } = config;
 // const { user3 } = config;
 
 const newContact = {
-  name: 'Contato 6',
+  name: 'Contato Test Leo',
   phone: '123231232',
   email: 'silva@email.com',
   children,
