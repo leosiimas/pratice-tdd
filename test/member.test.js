@@ -29,7 +29,6 @@ describe('Ao utilizar o endpoint Create Child Member', () => {
 
   test('Deve criar um membro para uma crianaça', async () => {
 
-    const newChild = await child.getChild(null, { 'X-Parse-Session-Token': newUser.sessionToken });
     const response = await axios
       .post(`${urlFunctions}/createChildMember`, { ...newMember, children: [newChild] }, { headers: { ...headers, 'X-Parse-Session-Token': newUser.sessionToken } })
       .then((r) => {
@@ -47,7 +46,7 @@ describe('Ao utilizar o endpoint Create Child Member', () => {
   // TODO arrumar não deve criar membro se nao foir editor
   test('Não deve criar um membro se não foir Editor da Criança', async () => {
 
-    const secondUser = await user.getUser({ email: `${unique}user2@email.com`, username: `${unique}user2@email.com`});
+    const secondUser = await user.getUser({ email: `${unique}user2@email.com`, username: `${unique}user2@email.com` });
 
     const response = await axios
       .post(`${urlFunctions}/createChildMember`, { ...newMember, children: [newChild] }, { headers: { ...headers, 'X-Parse-Session-Token': secondUser.sessionToken } })
@@ -82,4 +81,20 @@ describe('Ao utilizar o endpoint Create Child Member', () => {
   test('Não deve criar membro sem criança relacionada', () => testTemplate({ children: null }));
   test('Não deve criar membro sem role', () => testTemplate({ role: null }));
   test('Não deve criar membro sem parentesco com a crinaça', () => testTemplate({ userLink: null }));
+});
+
+// TODO maneira de pegar o convite
+describe('Membro pode se cadastrar pelos endpoints LinkInvite e SignUpInvite', () => {
+
+});
+
+describe('Ao utilizar o endpoint View Child Member', () => {s
+});
+
+describe('Ao utilizar o endpoint Get All Child Member', () => {
+
+});
+
+describe('Ao utilizar o endpoint Delete Child Member', () => {
+
 });
